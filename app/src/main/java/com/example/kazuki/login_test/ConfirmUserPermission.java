@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
-import com.amazonaws.mobileconnectors.lambdainvoker.LambdaInvokerFactory;
 import com.amazonaws.regions.Region;
 import com.amazonaws.services.lambda.AWSLambdaClient;
 import com.amazonaws.services.lambda.model.InvocationType;
@@ -63,7 +62,7 @@ public class ConfirmUserPermission {
                                     .withInvocationType(InvocationType.RequestResponse)
                                     .withPayload(payload);
                     CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
-                            mContext, AWSConfiguration.identityPoolId, AWSConfiguration.AMAZON_COGNITO_REGION);
+                            mContext, AWSConfiguration.IDENTITY_POOL_ID, AWSConfiguration.AMAZON_COGNITO_REGION);
 
                     ClientConfiguration clientConfiguration = new ClientConfiguration();
                     AWSLambdaClient awsLambdaClient = new AWSLambdaClient(cognitoProvider, clientConfiguration);

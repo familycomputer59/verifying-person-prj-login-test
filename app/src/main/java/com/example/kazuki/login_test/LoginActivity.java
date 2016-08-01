@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        userPool = new CognitoUserPool(this, AWSConfiguration.userPoolId, AWSConfiguration.clientId, AWSConfiguration.clientSecret, new ClientConfiguration());
+        userPool = new CognitoUserPool(this, AWSConfiguration.USER_POOL_ID, AWSConfiguration.CLIENT_ID, AWSConfiguration.CLIENT_SECRET, new ClientConfiguration());
 
     }
     /**
@@ -138,14 +138,14 @@ public class LoginActivity extends AppCompatActivity {
             userPool.getUser(userName).getSessionInBackground(new AuthenticationHandler() {
                 @Override
                 public void onSuccess(CognitoUserSession cognitoUserSession) {
-                    Toast.makeText(getApplicationContext(), "ログイン成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Login Succeed", Toast.LENGTH_SHORT).show();
 
                     ConfirmUserPermission confirmUserPermission = new ConfirmUserPermission(userName, getApplicationContext(), new ConfirmUserPermission.ConfirmUserPermissionListener() {
                         @Override
                         public void OnConfirmUserPermission(String userPermission) {
                             showProgress(false);
                             if (userPermission == null) {
-                                Toast.makeText(getApplicationContext(), "ログインに失敗しました", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
                             } else  {
                                 Intent intent = new Intent(LoginActivity.this, NextActivity.class);
                                 intent.putExtra("Key", userPermission);
@@ -171,7 +171,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Exception e) {
-                    Toast.makeText(getApplicationContext(), "ログインに失敗しました", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_LONG).show();
                     showProgress(false);
                 }
             });
